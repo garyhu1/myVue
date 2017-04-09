@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>Vue 测试实例 </title>
+		<script src="../js/vue.js"></script>
+		<style type="text/css">
+			.gg {
+				background: navajowhite;
+				color: hotpink;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<p>{{ message }}</p>
+			<div v-html="tag"></div>
+			<label for="tt">修改颜色：</label>
+			<input type="checkbox" id="tt" v-model="bb" />
+			<br><br>
+			<div v-bind:class="{'gg':bb}">
+				我只是用于显示修改后的状态
+			</div>
+			
+		</div>
+
+		<script>
+			new Vue({
+				el:'#app',
+				data:{
+					message:'Hello vue.js',
+					tag: '<h1>Garyhu</h1>',
+					bb: false
+				}
+			});
+		</script>
+	</body>
+
+</html>

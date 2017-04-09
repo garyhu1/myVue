@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue2 样式绑定 </title>
+		<script src="../js/vue.js"></script>
+		<style type="text/css">
+			.show{
+				width:100px;
+				height: 100px;
+				background: salmon;
+			}
+			.first{
+				width: 50px;
+				height: 50px;
+				background: blueviolet;
+			}
+			.second{
+				width: 120px;
+				height: 120px;
+				background: greenyellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test">
+			<!-- ok 为true就显示带背景的样式，false不显示设置好的样式-->
+			<div v-bind:class="{'show':ok}"></div>
+			<!--
+				first和second同时为true时second的样式会覆盖first的
+				因为在css文件中second样式写在后面first后面，所以覆盖了
+			-->
+			<div class="laal" v-bind:class="{'first':ok, 'second': hide}"></div>
+			<br /><br /><br />
+			<!-- 通过对象绑定-->
+			<div v-bind:class="classObj"></div>
+			<!-- 通过Computed属性绑定-->
+			<div v-bind:class='myClass'></div>
+			<!-- 通过数组绑定-->
+			<div v-bind:class="[a,b]"></div>
+			<!-- v-bind:style内联样式-->
+			<div v-bind:style="{color:myColor,fontSize:myFont+'px'}">
+				我是garyhu
+			</div>
+			<div v-bind:style="myStyle">这是内联样式</div>	
+			<!-- 用数组将多个样式应用到一个元素上-->
+			<div v-bind:style="[oneStyle,myStyle]">
+				应用了多个样式
+			</div>
+		</div>
+	</body>
+	<script>
+		var ve = new Vue({
+			el: "#test",
+			data: {
+				ok: true,
+				hide: true,
+				classObj: {
+					'second': true,
+					'first': true
+				},
+				active: true,
+				obj: null,
+				b: 'second',
+				a: 'first',
+				myColor: "#FdFa22",
+				myFont: 30,
+				myStyle:{
+					color: "red",
+					fontSize: "30px"
+				},
+				oneStyle: {
+					background: "#98DFF1",
+					maginTop: "10px"
+				}
+			},
+			computed:{
+				myClass:function(){
+					return{
+						'first': this.active&&!this.obj,
+						'second': this.obj
+					}
+				}
+			}
+             
+		});
+	</script>
+</html>

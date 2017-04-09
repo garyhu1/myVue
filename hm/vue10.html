@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue2 自定义指令 </title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="test">
+			<p>自动聚焦：</p>
+			<input v-myfocus/>
+		</div>
+	</body>
+	<script>
+		//自定义一个自动聚焦的指令
+		Vue.directive('focus', {
+			inserted: function(el) {
+				el.focus();
+			}
+		});
+
+		new Vue({
+			el: '#test',
+			directives: {
+				// 注册一个局部的自定义指令 v-focus
+				//注意： 不可以出现大写字母
+				myfocus: {
+					// 指令的定义
+					inserted: function(el) {
+						// 聚焦元素
+						el.focus()
+					}
+				}
+			}
+		});
+	</script>
+
+</html>

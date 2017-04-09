@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue2 绑定和过滤 </title>
+		<script src="../js/vue.js"></script>
+		<style type="text/css">
+			#list-1{
+				background: darkmagenta;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			{{5+5}}<br />
+			{{flag?"YES":"NO"}}<br />
+			{{message.split("").reverse().join("")}}
+			<div v-bind:id="'list-'+id">我是garyhu</div>
+			<p v-if='show'>你可以看到我了</p>
+			<a v-bind:href="url">点击跳转</a>
+			<!--<a :href="url">点击跳转</a>-->
+			<p v-on:click="clickHere">点我吧</p>
+			<!--<p @click="clickHere">点我吧</p>-->
+			<input type="text" v-model="mm" />
+			<p>{{mm}}</p>
+			<button v-on:click="reserveMsg">取反</button><br />
+			<p>{{msg}}</p>
+			<p>{{name|myFilter}}</p>
+			<p>{{lastName|f1|f2}}</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var ve = new Vue({
+			el: '#app',
+			data: {
+				flag: true,
+				message: 'GARYHU',
+				msg: "JavaScript",
+				id: 1,
+				show: true,
+				name: "garyLiu",
+				url: 'vue1.html',
+				clickHere: function(){
+					alert("我被点击了");
+				},
+				mm:"luck",
+				lastName:"Android"
+			},
+			methods: {
+				reserveMsg:function(){
+					this.msg = this.msg.split("").reverse().join("");
+				}
+			},
+			filters:{
+				myFilter:function(value){
+					if(!value){
+						return "";
+					}
+					value = value.toString();
+					return value.toUpperCase();
+				},
+				f1:function(value){
+					value = value.toString();
+					return value.toLowerCase();
+				},
+				f2:function(value){
+					return value.length;
+				}
+			}
+		});
+		//Vue 实例暴露了一些有用的实例属性与方法。
+		//这些属性与方法都有前缀 $，以便与代理的 data 属性区分
+		ve.$data.mm = "garyhu";
+		//用于监听mm值的变化
+		ve.$watch("mm",function(newVal,oldVal){
+			alert(newVal+"取代了"+oldVal);
+		});
+		var flag = ve.$el === document.getElementById("app");//true
+//		alert(flag);
+	</script>
+</html>

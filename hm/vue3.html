@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue2 条件和循环 </title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<!--条件语句-->
+			<p v-if="seen">我是能看见的</p>
+			<p v-else>garyhu</p>
+			<p v-if="ok">OK</p>
+			<p v-show="show">Android</p>
+		<!-- v-show对template不起作用-->	
+			<template v-show="hide">看看能不能隐藏</template>
+			<div>
+				<p v-if="type === 'A'">
+					A
+				</p>
+				<p v-else-if="type === 'B'">
+					B
+				</p>
+				<p v-else-if="type === 'C'">
+					C
+				</p>
+				<p v-else>
+					D
+				</p>
+			</div>
+			<!--循环语句-->
+			<ul>
+				<li v-for="x in langs">{{x.name}}</li>
+			</ul>
+			<ol>
+				<template v-for="x in langs">
+					<li>{x.name}</li>
+					<li>------------</li>
+				</template>
+			</ol>
+			<ul>
+				<!--
+					x:代表对象中的值value
+					y:对象中的键key
+					z:索引
+				-->
+				<li v-for="(x,y,z) in users">{{(z+1)+"<--->"+x}}</li>
+			</ul>
+			<ul>
+				<!-- n从1开始-->
+				<li v-for="n in 5">{{n}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		new Vue({
+			el: "#app",
+			data: {
+				seen: true,
+				ok: false,
+				type: 'C',
+				show: true,
+				hide: false,
+				langs: [
+				   {name:'Android'},
+				   {name: 'JavaScript'},
+				   {name:'Python'},
+				   {name:'Php'}
+				],
+				users: {
+					name: "vueJs练习",
+					url: "https://vue.js",
+					time: "2017-4-9"
+				}
+			}
+		});
+	</script>
+
+</html>

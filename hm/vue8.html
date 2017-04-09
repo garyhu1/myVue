@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue2 自定义组件 </title>
+		<script src="../js/vue.js"></script>
+		<!--
+			组件（Component）是 Vue.js 最强大的功能之一。
+                                 组件可以扩展 HTML 元素，封装可重用的代码。
+                                 组件系统让我们可以用独立可复用的小组件来构建大型应用
+		-->
+		<style type="text/css">
+			.ff {
+				color: darkgoldenrod;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="test">
+			<garyhu></garyhu>
+			<child></child>
+			<!--
+				prop 是父组件用来传递数据的一个自定义属性。
+                                            父组件的数据需要通过 props 把数据传给子组件，
+                                            子组件需要显式地用 props 选项声明 "prop"：
+			-->
+			<luck msg="garyhu"></luck>
+
+			<!--
+				动态 Prop
+                                             类似于用 v-bind绑定HTML特性到一个表达式，
+                                             也可以用 v-bind动态绑定 props的值到父组件的数据中。
+                                             每当父组件的数据变化时，该变化也会传导给子组件：
+			-->
+			<input type="text" v-model='bMsg' /><br />
+			<cusp v-bind:m="bMsg"></cusp>
+
+			<!--
+				将 v-bind 指令将 to 传到每一个重复的组件中：
+			-->
+			<ul>
+				<my-item v-for="item in sites" v-bind:to="item"></my-item>
+			</ul>
+			<!--注意: prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来。-->
+
+			<!--
+				Prop 验证
+                                             组件可以为 props 指定验证要求。
+                prop 是一个对象而不是字符串数组时，它包含验证要求：
+                                           具体说明见下面JS
+			-->
+		</div>
+	</body>
+	<script>
+		Vue.component('garyhu', {
+			template: '<h1 class="ff">我是自定义的组件！</h1>'
+		});
+
+		var child = {
+				template: '<h1>我是子组件！</h1>'
+			}
+			// 注册组件
+		Vue.component('luck', {
+			// 声明 props
+			props: ['msg'],
+			// 同样也可以在 vm 实例中像 "this.message" 这样使用
+			template: '<span>{{msg}}</span>'
+		});
+		//注册
+		Vue.component('cusp', {
+			props: ['m'],
+			template: '<span>{{m}}</span>'
+		});
+		//注册
+		Vue.component('my-item', {
+			props: ['to'],
+			template: '<li>{{to.text}}</li>'
+		});
+		new Vue({
+			el: '#test',
+			components: {
+				'child': child
+			},
+			data: {
+				bMsg: "默认值",
+				sites: [{
+					text: "TaoBao"
+				}, {
+					text: "Google"
+				}, {
+					text: "Baidu"
+				}],
+			}
+		});
+
+/*		Vue.component('example', {
+			props: {
+				// 基础类型检测 （`null` 意思是任何类型都可以）
+				propA: Number,
+				// 多种类型
+				propB: [String, Number],
+				// 必传且是字符串
+				propC: {
+					type: String,
+					required: true
+				},
+				// 数字，有默认值
+				propD: {
+					type: Number,
+					default: 100
+				},
+				// 数组／对象的默认值应当由一个工厂函数返回
+				propE: {
+					type: Object,
+					default: function() {
+						return {
+							message: 'hello'
+						}
+					}
+				},
+				// 自定义验证函数
+				propF: {
+					validator: function(value) {
+						return value > 10
+					}
+				}
+			}
+		})*/
+		/*
+		 * 注意：
+		 * type 可以是下面原生构造器：
+		 * String
+		 * Number
+		 * Boolean
+		 * Function
+		 * Object
+		 * Array
+		 * 
+		 * type 也可以是一个自定义构造器，使用 instanceof 检测。
+		 */
+	</script>
+
+</html>
