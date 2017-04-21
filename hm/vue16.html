@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>vue的slot插槽的作用域</title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="gg">
+			<garyhu>
+				<template scope="props">
+					<li>{{props.v.name}}</li>
+				</template>
+			</garyhu>
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el: '#gg',
+			component: {
+				garyhu: {
+					template: '\
+					    <ul>\
+					       <slot v-for='x in list ' v-bind:v='x'>\
+					       </slot>\
+					    </ul>\
+					',
+					data: function() {
+						return {
+							list: [{
+									name: 'juddy',
+									age: '20'
+								},
+								{
+									name: 'Teller',
+									age: '16'
+								},
+								{
+									name: 'Justin',
+									age: '31'
+								},
+								{
+									name: 'Merry',
+									age: '26'
+								}
+							],
+						}
+					}
+				}
+			}
+		});
+	</script>
+
+</html>

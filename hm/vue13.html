@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="mount-house"></div>
+	</body>
+	<script>
+		var myMount = Vue.extend({
+			template:'<p>{{firstName}} {{middleName}} garyhu {{lastName}}</p>',
+			data: function(){
+				return {
+					firstName: 'Judy',
+					middleName: 'Harry',
+					lastName: 'senddly'
+				}
+			}
+		});
+		
+		new myMount().$mount("#mount-house");
+	</script>
+</html>

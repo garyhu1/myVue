@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>vue的slot插槽</title>
+		<script src="../js/vue.js"></script>
+		<!--
+			slot:
+			除非子组件模板包含至少一个 <slot> 插口，否则父组件的内容将会被丢弃。
+			当子组件模板只有一个没有属性的 slot 时，
+			父组件整个内容片段将插入到 slot 所在的 DOM 位置，并替换掉 slot 标签本身。
+		-->
+		<style type="text/css">
+			span {
+				color: darkcyan;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<p>我是父组件</p>
+			<!--无命名的slot-->
+			<garyhu>
+			   <p style="font-size: 12px;">我插入了内容</p>
+			</garyhu>
+			<!--具名的slot-->
+			<my-component>
+				<h1 slot='header'>只是一个标题</h1>
+				<p>我是主要的内容部分</p>
+				<p>我是内容介绍</p>
+				
+				<p slot='footer'>我是结尾部分</p>
+			</my-component>
+			<!-- 作用域插槽slot-->
+			<new-component>
+				<template scope='props'>
+					<span>我父类自带的</span>
+					<span>{{props.p}}</span>
+				</template>
+			</new-component>
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el: '#app',
+			components:{
+				//不带名称的插槽
+				//最初在 <slot> 标签中的任何内容都被视为备用内容。
+				//备用内容在子组件的作用域内编译，并且只有在宿主元素为空，且没有要插入的内容时才显示备用内容
+				garyhu:{
+					template: '\
+			            <div>\
+			               <h1>我是子组件</h1>\
+			               <slot>\
+			                   只有没有内容分发时我才会被显示\
+			                </slot>\
+			            </div>\
+			        ',
+				},
+				
+				//作用域插槽是一种特殊类型的插槽，
+				//用作（可以传入数据的）可重用模板,而不是已渲染元素。
+				//在父级中，具有特殊属性 scope 的 <template> 元素，
+				//表示它是作用域插槽的模板。scope 的值对应一个临时变量名，
+				//此变量接收从子组件中传递的 prop 对象：
+				newComponent: {
+					template: '\
+					    <div>\
+					       <slot p="我是来自插槽"></slot>\
+					    </div>\
+					',
+				},
+				
+				//带有名称的插槽
+				//<slot> 元素可以用一个特殊的属性 name 来配置如何分发内容。
+				//多个 slot 可以有不同的名字。具名 slot 将匹配内容片段中有对应 slot 特性的元素
+				myComponent: {
+					template: '\
+					   <div>\
+					      <header>\
+					          <slot name='header'></slot>\
+					      </header>\
+					      <main>\
+					           <slot></slot>\
+					      </main>\
+					      <footer>\
+					          <slot name='footer'></slot>\
+					      </footer>\
+					   </div>\   
+					',
+				}
+				
+			}
+		});
+		
+	
+	</script>
+
+</html>
