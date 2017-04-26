@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue的自定义事件</title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="myapp">
+			<button-add v-on:addto='result'></button-add>
+			<p>{{total}}</p>
+		</div>
+		
+	</body>
+	<!--
+		$emit():用来触发事件
+		$on():用来监听事件
+	-->
+	<script>
+		Vue.component("buttonAdd",{
+			template : '<button v-on:click="addto">{{count}}</button>',
+			data : function(){
+				return {
+					count: 0,
+				}
+			},
+			methods : {
+				addto : function (){
+					this.count +=1;
+					this.$emit('addto');
+				}
+			}
+		});
+		new Vue({
+			el: "#myapp",
+			data : {
+				total: 0,
+			},
+			methods : {
+				result : function () {
+					this.total +=1;
+				}
+			}
+		});
+	</script>
+</html>

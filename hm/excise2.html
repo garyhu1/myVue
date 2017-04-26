@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>vue自定义组件</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="myapp">
+			<garyhu>
+				<!--
+					当加入插槽时就可以显示父组件的内容
+				-->
+				<p slot='footer'>在尾部显示的内容</p>
+				<p>内容一号</p>
+				<p>自定义组件父组件的文本</p>
+			</garyhu>
+		</div>
+	</body>
+	<script>
+		Vue.component('garyhu', {
+			template: "\
+			   <div>\
+			       <p>子组件的内容</p>\
+			       <slot>没有文本时才显示</slot>\
+			       <slot name='footer'></slot>\
+			   </div>\
+			   ",
+		});
+		new Vue({
+			el: '#myapp',
+		});
+	</script>
+
+</html>

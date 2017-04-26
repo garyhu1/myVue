@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue的自定义组件</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id='test'>
+			<garyhu msg="hello!"></garyhu><br />
+			<input type="text" v-model="cusmsg" />
+			<child v-bind:da='cusmsg'></child>
+		</div>
+	</body>
+	<script>
+		Vue.component('garyhu',{
+			props: ['msg'],
+			template : "<span>{{msg}}</span>"
+		});
+		Vue.component('child',{
+			props : ['da'],
+			template: "<p>{{da}}</p>"
+		});
+		new Vue({
+			el: '#test',
+			data: {
+				cusmsg : 'Juddy'
+			}
+		});
+	</script>
+</html>
