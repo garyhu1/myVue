@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>多个元素的过渡</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+
+	<body>
+		<div id="test">
+			<button v-on:click='toggle'>执行</button>
+			<transition>
+				<table v-if="items.length > 0">
+					<tr>
+						<td>{{ items[0] }}</td>
+					</tr>
+					<!-- ... -->
+				</table>
+				<p v-else>Sorry, no items found.</p>
+			</transition>
+			<transition>
+				<button v-bind:key="doneMsg">{{ btnMessage }}</button>
+			</transition>
+		</div>
+	</body>
+	<script type="text/javascript">
+		new Vue({
+			el: '#test',
+			data: {
+//				items:['1','2','3']
+                items: [],
+                doneMsg: 'edited',
+			},
+			methods: {
+				toggle: function() {
+					this.items = ['1','2','3'];
+				}
+			},
+			computed: {
+				btnMessage: function() {
+					switch(this.doneMsg){
+						case 'save': return 'Save';
+						case 'edited': return 'Edited';
+						case 'editting': return 'Editting';
+						default: return "Button";
+						
+					}
+				}
+			}
+		});
+	</script>
+
+</html>

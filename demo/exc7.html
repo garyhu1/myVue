@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>初始渲染的过渡</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<style type="text/css">
+			.cus-in {
+				transition: .5s;
+				transform: rotateX(100);
+			}
+		</style>
+	</head>
+	<body>
+		<!--暂时没有演示成功，待演示-->
+		<div id="test">
+			<transition appear
+				appear-class='cus-in'
+				appear-active-class='cus-out'>
+				<p v-if='show'>Hello</p>
+			</transition>
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el: '#test',
+			data: {
+				show: true,
+			}
+		});
+	</script>
+</html>

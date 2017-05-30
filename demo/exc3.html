@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>过渡效果</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<style type="text/css">
+			.show-block {
+				width: 200px;
+				height: 100px;
+				background: red;
+				margin: 100px auto;
+			}
+			
+			.frade-enter-active,
+			.frade-leave-active {
+				transition: width .5s
+			}
+			
+			.frade-enter,
+			.frade-leave-active {
+				width: 0
+			}
+			
+			
+			/* 可以设置不同的进入和离开动画 */
+			/* 设置持续时间和动画函数 */
+			
+			.slide-enter-active {
+				transition: all .3s ease;
+			}
+			
+			.slide-leave-active {
+				transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+			}
+			
+			.slide-enter,
+			.slide-leave-active {
+				transform: translateX(10px);
+				opacity: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--
+			会有 4 个(CSS)类名在 enter/leave 的过渡中切换:
+              1、v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。
+              2、v-enter-active: 定义进入过渡的结束状态。
+                                 在元素被插入时生效，在 transition/animation 完成之后移除。
+              3、v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。
+              4、v-leave-active: 定义离开过渡的结束状态。
+                                 在离开过渡被触发时生效，在 transition/animation 完成之后移除。
+		-->
+		<div id="test">
+			<button @click='toggle'>隐藏/显示</button>
+			<!--当插入或删除包含在 transition 组件中-->
+			<!--类名的命名根据name,没有name时，就是v-enter等，有则使用xx-enter -->
+			<transition name='slide'>
+				<p v-if='show'>Hello</p>
+			</transition>
+			<transition name='frade'>
+				<div class="show-block" v-if='show'></div>
+			</transition>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#test',
+			data: {
+				show: true,
+			},
+			methods: {
+				toggle: function() {
+					this.show = !this.show;
+				}
+			}
+		});
+	</script>
+
+</html>

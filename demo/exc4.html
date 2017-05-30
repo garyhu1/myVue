@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>过渡效果2</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<style type="text/css">
+			.cus-enter-active {
+				animation: cus-in .5s;
+			}
+			.cus-leave-active {
+				animation: cus-out .5s;
+			}
+			@keyframes cus-in {
+				0% {
+					transform: scale(0);
+				}
+				50% {
+					transform: scale(1);
+				}
+				100%  {
+					transform: scale(1.5);
+				}
+			}
+			@keyframes cus-out {
+				0% {
+					transform: scale(1.5);
+				}
+				50% {
+					transform: scale(1);
+				}
+				100%  {
+					transform: scale(1);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test">
+			<button @click='toggle'>隐藏/显示</button>
+			<transition name='cus'>
+				<p v-if='show'>Move   to   right</p>
+			</transition>
+		</div>
+	</body>
+	<script>
+		var vm = new Vue({
+			el: '#test',
+			data: {
+				show: true,
+			},
+			methods : {
+				toggle: function() {
+					this.show = !this.show;
+				}
+			}
+		});
+	</script>
+</html>

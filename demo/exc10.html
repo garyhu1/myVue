@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>多个组件的过渡</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<style type="text/css">
+			.fade-enter-active,
+			.fade-leave-active {
+				transition: opacity .3s ease;
+			}
+			
+			.fade-enter,
+			.fade-leave-active {
+				opacity: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="test">
+			<input type="radio" name="A" @change='toggle' value="A" v-model='checkMsg'/>A
+			<input type="radio" name='A' @change='toggle' value="B" v-model='checkMsg'/>B
+			<p>{{ checkMsg }}</p>
+			<transition name='fade' mode='out-in'>
+				<component v-bind:is="view"></component>
+			</transition>
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el: '#test',
+			data: {
+				view: 'v-a',
+				checkMsg: 'A',
+			},
+			components: {
+				'v-a': {
+					template: '<div>Component A</div>'
+				},
+				'v-b': {
+					template: '<div>Component B</div>'
+				}
+			},
+			methods: {
+				toggle: function() {
+					if(this.checkMsg === 'A'){
+						this.view = 'v-a'
+					}else {
+						this.view = 'v-b'
+					}
+				}
+			}
+		})
+	</script>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>异步更新队列</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="ex">{{ message }}</div>
+	</body>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#ex',
+			data: {
+				message: "hello",
+			}
+		});
+		//数据的更新是异步的
+		vm.message = 'new Msg';
+		console.log(vm.$el.textContent === 'new Msg');
+		//当数据更新完成后执行下面的方法
+		Vue.nextTick(function(){
+			console.log(vm.$el.textContent === 'new Msg');
+		});
+	</script>
+</html>

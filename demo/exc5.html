@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义过渡类名</title>
+		<link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>	
+	</head>
+	<body>
+		<!--
+			我们可以通过以下特性来自定义过渡类名：
+            1、enter-class
+            2、enter-active-class
+            3、leave-class
+            4、leave-active-class
+                        他们的优先级高于普通的类名
+		-->
+		<div id="test">
+			<button @click='toggle'>隐藏/显示</button>
+			<transition
+				name='cus-animation-class'
+				enter-active-class="animated tada"
+                leave-active-class="animated bounceOutRight">
+				<p v-if='show'>Look at me!</p>
+			</transition>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#test',
+			data: {
+				show: true,
+			},
+			methods: {
+				toggle: function() {
+					this.show = !this.show;
+				}
+			}
+		});
+	</script>
+</html>
