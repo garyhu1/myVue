@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>列表位移的过渡</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+		<style>
+			.list-move {
+				transition: transform 1s;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			<transition-group> 组件还有一个特殊之处。
+			不仅可以进入和离开动画，还可以改变定位。
+			要使用这个新功能只需了解新增的 v-move 特性，
+			它会在元素的改变定位的过程中应用。像之前的类名一样，
+			可以通过 name 属性来自定义前缀，
+			也可以通过 move-class 属性手动设置。
+		-->
+		<div id="test" class="demo">
+			<button @click='shuffle'>Shuffle</button>
+			<transition-group name='list' tag='ul'>
+				<li v-for='item in items' v-bind:key='item'>
+					{{ item }}
+				</li>
+			</transition-group>
+		</div>
+	</body>
+	<script type="text/javascript">
+		new Vue({
+			el: '#test',
+			data: {
+				items: [1,2,3,4,5,6,7,8,9],
+			},
+			methods: {
+				shuffle: function() {
+					//该方法用于重新返回一个数组（该数组的位置发生了随机的改变）
+					this.items = _.shuffle(this.items);
+				}
+			}
+		});
+	</script>
+</html>

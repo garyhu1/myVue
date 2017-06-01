@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>列表位移的过渡</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+		<style type="text/css">
+			.list-item {
+				margin-right: 10px;
+				display: inline-block;
+			}
+			.list-enter-active,
+			.list-leave-active {
+				transition: all 1s;
+			}
+			.list-enter,
+			.list-leave-active {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			.list-move {
+				transition: transform 1s;
+			}
+		</style>
+	</head>
+	<!--
+		需要注意的是使用 FLIP 过渡的元素不能设置为 display: inline 。
+		作为替代方案，可以设置为 display: inline-block 或者放置于 flex 中
+	-->
+	<body>
+		<div id="test" class="demo">
+			<button @click='shuffle'>Shuffle</button>
+			<button @click='add'>Add</button>
+			<button @click='remove'>Remove</button>
+			<transition-group name='list' tag='p'>
+				<span v-for='item in items' :key='item' class="list-item">
+					{{ item }}
+				</span>
+			</transition-group>
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el: '#test',
+			data: {
+				items: [1,2,3,4,5,6,7,8,9],
+				nextNum: 10,
+			},
+			methods: {
+				randomIndex: function() {
+					return Math.floor(Math.random()*this.items.length);
+				},
+				add: function() {
+					this.items.splice(this.randomIndex(),0,this.nextNum++);
+				},
+				remove: function() {
+					this.items.splice(this.randomIndex(),1);
+				},
+				shuffle: function() {
+					this.items = _.shuffle(this.items);
+				}
+			}
+		});
+	</script>
+</html>
