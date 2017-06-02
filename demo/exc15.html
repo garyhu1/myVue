@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>可复用的过渡</title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		//使用 template 的简单例子：
+		Vue.component('my-special-transition', {
+			template: '\
+                <transition\
+                    name="very-special-transition"\
+                    mode="out-in"\
+                    v-on:before-enter="beforeEnter"\
+                    v-on:after-enter="afterEnter"\
+                    >\
+                      <slot></slot>\
+                </transition>\
+               ',
+			methods: {
+				beforeEnter: function(el) {
+					// ...
+				},
+				afterEnter: function(el) {
+					// ...
+				}
+			}
+		})
+		//函数组件更适合完成这个任务：
+		Vue.component('my-special-transition', {
+			functional: true,
+			render: function(createElement, context) {
+				var data = {
+					props: {
+						name: 'very-special-transition',
+						mode: 'out-in'
+					},
+					on: {
+						beforeEnter: function(el) {
+							// ...
+						},
+						afterEnter: function(el) {
+							// ...
+						}
+					}
+				}
+				return createElement('transition', data, context.children)
+			}
+		})
+	</script>
+
+</html>

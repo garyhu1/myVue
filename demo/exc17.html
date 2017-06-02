@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>状态动画 与 watcher</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<script src="https://unpkg.com/tween.js@16.3.4"></script>
+	</head>
+
+	<body>
+		<div id="test">
+			<input type="number" v-model.number="number" step="20" />
+			<p> {{animateNum}} </p>
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el: "#test",
+			data: {
+				number: 0,
+				animateNum: 0,
+			},
+			watch: {
+				number: function(newValue, oldValue) {
+					var vm = this;
+
+					function animate(time) {
+						requestAnimationFrame(animate);
+						TWEEN.update(time);
+					}
+
+					new TWEEN.Tween({
+							tweeningNum: oldValue
+						})
+						.easing(TWEEN.Easing.Quadratic.Out)
+						.to({
+							tweeningNum: newValue
+						}, 500)
+						.onUpdate(function() {
+							vm.animateNum = this.tweeningNum.toFixed(0);
+						})
+						.start();
+					animate();
+				}
+			}
+		});
+	</script>
+
+</html>
