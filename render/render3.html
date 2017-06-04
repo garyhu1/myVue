@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>render3</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="test">
+			<garyhu value = 'garyhu'></garyhu>
+		</div>
+	</body>
+	<script>
+		//相当于v-model
+		Vue.component('garyhu',{
+			render: function(createElement) {
+				var that = this;
+				return createElement('div',[
+				   createElement('input',{
+				   	  domProps: {
+				   	  	value : this.value
+				   	  },
+				   	  on: {
+				   	  	input: function(event){
+				   	  		this.value = event.target.value;
+				   	  	}
+				   	  }
+				   }),
+				   createElement('p', this.value),
+				]);
+			},
+			props: ['value']
+		});
+		
+		new Vue({
+			el: "#test",
+			data: {
+				
+			}
+		});
+	</script>
+</html>
