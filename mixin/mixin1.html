@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>mixin1基础</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="test"></div>
+	</body>
+	
+	<script>
+		var myMixin = {
+			created: function () {
+				this.hello();
+			},
+			methods: {
+				hello: function() {
+					console.log('Hello World!');
+				}
+			}
+		}
+		
+		var Component = Vue.extend({
+			mixins: [myMixin]
+		});
+		
+		new Component().$mount('#test');
+	</script>
+</html>

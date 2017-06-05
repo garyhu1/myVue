@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>全局混合</title>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		//也可以全局注册混合对象。 注意使用！ 一旦使用全局混合对象，
+		//将会影响到 所有 之后创建的 Vue 实例。使用恰当时，可以为自定义对象注入处理逻辑。
+		Vue.mixin({
+			created: function() {
+				var myOption = this.$options.myOption;
+				if(myOption){
+					console.log(myOption);
+				}
+			}
+		});
+		
+		new Vue({
+			myOption: 'hello world !'
+		});
+		
+		/*
+		 谨慎使用全局混合对象，因为会影响到每个单独创建的 Vue 实例（包括第三方模板）。
+		 大多数情况下，只应当应用于自定义选项，就像上面示例一样。 
+		 也可以将其用作 Plugins 以避免产生重复应用
+		 */
+	</script>
+</html>

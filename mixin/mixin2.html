@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>选项合并</title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+	</body>
+	<script>
+		//当组件和混合对象含有同名选项时，这些选项将以恰当的方式混合。
+		//比如，同名钩子函数将混合为一个数组，因此都将被调用。另外，混合对象的 钩子将在组件自身钩子 之前 调用 ：
+		var m = {
+			created: function() {
+				console.log('混合数据开始使用');
+			}
+		}
+		
+		//值为对象的选项，例如 methods, components 和 directives，
+		//将被混合为同一个对象。 两个对象键名冲突时，取组件对象的键值对。
+		var m1 = {
+			methods: {
+				bar: function() {
+					console.log('使用混合的bar');
+				},
+				conflict: function() {
+					console.log('混合冲突')
+				}
+			}
+		}
+		
+		var vm = new Vue({
+			mixins: [m,m1],
+			created: function() {
+				console.log('开始使用组件')
+			},
+			methods: {
+				foo: function() {
+					console.log('组件的foo')
+				},
+				conflict: function() {
+					console.log('组件冲突');
+				}
+			}
+		});
+		vm.bar();
+		vm.foo();
+		vm.conflict();
+	</script>
+</html>
