@@ -23,6 +23,8 @@
 			<p>Preview:</p>
 			<span v-bind:style="{ backgroundColor: tweenedCSSColor }" class="example-7-color-preview"></span>
 			<p>{{ tweenedCSSColor }}</p>
+			<button @click="changeText">改变数据</button>
+			<p ref='change'></p>
 		</div>
 	</body>
 	<script>
@@ -68,6 +70,9 @@
 				updateColor: function() {
 					this.color = new Color(this.colorQuery).toRGB()
 					this.colorQuery = ''
+				},
+				changeText: function() {
+					this.$refs.change.innerHTML = 'Hello World!';
 				}
 			}
 		})
